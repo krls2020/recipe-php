@@ -12,6 +12,7 @@ if (file_exists(__DIR__ . '/.env')) {
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if ($path == '/status') {
+    header('Content-Type: application/json');
     echo json_encode(['status' => 'UP']);
     exit;
 } elseif ($path != '/') {
@@ -40,7 +41,7 @@ $row = pg_fetch_assoc($result);
 
 echo <<<EOT
 <pre>
-This is a simple, basic PHP application running on Zerops.io,
+This is a simple, basic PHP application running on <a href="https://zerops.io/">Zerops.io</a>,
 each request adds an entry to the PostgreSQL database and returns a count.
 See the source repository (<a href="https://github.com/zeropsio/recipe-php">https://github.com/zeropsio/recipe-php</a>) for more information.
 
