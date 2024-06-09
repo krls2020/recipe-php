@@ -38,11 +38,14 @@ pg_query($dbconn, "INSERT INTO entries (data) VALUES ('$data');");
 $result = pg_query($dbconn, "SELECT COUNT(*) AS count FROM entries;");
 $row = pg_fetch_assoc($result);
 
-echo "<p>This is a simple, basic PHP application running on Zerops.io,
-      each request adds an entry to the PostgreSQL database and returns a count.
-      See the source repository (https://github.com/zeropsio/recipe-php) for more information.</p>";
+echo <<<EOT
+<pre>
+This is a simple, basic PHP application running on Zerops.io,
+each request adds an entry to the PostgreSQL database and returns a count.
+See the source repository (<a href="https://github.com/zeropsio/recipe-php">https://github.com/zeropsio/recipe-php</a>) for more information.
 
-
-echo "<pre>Entry added successfully with random data: $data. Total count: " . $row['count'] . "</pre>";
+Entry added successfully with random data: $data. Total count: {$row['count']}
+</pre>
+EOT;
 
 pg_close($dbconn);
