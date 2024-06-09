@@ -43,7 +43,6 @@ zerops:
         - ./src/~/vendor
     run:
       base: php-nginx@8.3
-#      siteConfigPath: site.conf
       envVariables:
         DB_NAME: db
         DB_HOST: db

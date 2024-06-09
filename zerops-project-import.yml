@@ -10,7 +10,7 @@ services:
     buildFromGit: https://github.com/krls2020/recipe-php
 
   - hostname: nginxapi
-    type: php-nginxe@8.3
+    type: php-apache@8.3
     enableSubdomainAccess: true
     buildFromGit: https://github.com/krls2020/recipe-php
 
@@ -19,6 +19,4 @@ services:
     mode: NON_HA
     priority: 1
 
-  - hostname: adminer
-    type: php-apache@8.1
-    buildFromGit: https://github.com/zeropsio/recipe-adminer@main
+

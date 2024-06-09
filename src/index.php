@@ -42,8 +42,11 @@ $row = pg_fetch_assoc($result);
 echo <<<EOT
 <pre>
 This is a simple, basic PHP application running on <a href="https://zerops.io/">Zerops.io</a>,
-each request adds an entry to the PostgreSQL database and returns a count.
+serving the same content whether deployed on Apache or Nginx service.  
+Each request adds an entry to the PostgreSQL database and returns a count.  
+
 See the source repository (<a href="https://github.com/zeropsio/recipe-php">https://github.com/zeropsio/recipe-php</a>) for more information.
+
 
 Entry added successfully with random data: $data. Total count: {$row['count']}
 </pre>
