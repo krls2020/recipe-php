@@ -6,12 +6,6 @@ zerops:
       ports:
         - port: 80
           httpSupport: true
-      envVariables:
-        DB_NAME: db
-        DB_HOST: db
-        DB_PORT: 5432
-        DB_USER: db
-        DB_PASS: ${db_password}
       buildCommands:
         - |
           cd src
@@ -22,6 +16,12 @@ zerops:
         - ./src/~/vendor
     run:
       base: php-apache@8.3
+      envVariables:
+        DB_NAME: db
+        DB_HOST: db
+        DB_PORT: 5432
+        DB_USER: db
+        DB_PASS: ${db_password}
       healthCheck:
         httpGet:
           port: 80
