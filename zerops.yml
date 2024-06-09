@@ -27,26 +27,29 @@ zerops:
           port: 80
           path: /status
 
-  - setup: phpnginx81
+  - setup: nginxapi
     build:
-      base: php-nginx@8.3
+      base:
+        - php@8.3
       ports:
         - port: 80
           httpSupport: true
+      buildCommands:
+        - |
+          cd src
+          composer install --optimize-autoloader --no-dev
+      deploy:
+        - ./src/~/index.php
+        - ./src/~/vendor
+    run:
+      base: php-nginx@8.3
+#      siteConfigPath: site.conf
       envVariables:
         DB_NAME: db
         DB_HOST: db
         DB_PORT: 5432
         DB_USER: db
         DB_PASS: ${db_password}
-      buildCommands:
-        - |
-          cd php
-          composer install --optimize-autoloader --no-dev
-      deploy:
-        - ./php/~/index.php
-        - ./php/~/vendor
-    run:
       healthCheck:
         httpGet:
           port: 80
