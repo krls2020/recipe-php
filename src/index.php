@@ -53,3 +53,5 @@ Entry added successfully with random data: $data. Total count: {$row['count']}
 EOT;
 
 pg_close($dbconn);
+
+phpinfo();
