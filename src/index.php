@@ -56,7 +56,14 @@ EOT;
 
 pg_close($dbconn);
 
-syslog(LOG_INFO, "Entry added successfully with random data:" . $data);
+syslog(LOG_INFO, "LOG_INFO  Entry added successfully with random data:" . $data);
+
+syslog(LOG_NOTICE, "LOG_NOTICE  Entry added successfully with random data:" . $data);
+
+syslog(LOG_DEBUG	, "LOG_DEBUG    Entry added successfully with random data:" . $data);
+
+error_log("error_log    Entry added successfully with random data:" . $data);
+
 
 
 phpinfo();
