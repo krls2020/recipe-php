@@ -50,17 +50,20 @@ See the source repository (<a href="https://github.com/zeropsio/recipe-php">http
 
 Entry added successfully with random data: $data. Total count: {$row['count']}
 
-LOGUJ
+SYSLOG
 </pre>
 EOT;
 
 pg_close($dbconn);
 
+openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_LOCAL0);
+
 syslog(LOG_INFO, "LOG_INFO  Entry added successfully with random data:" . $data);
-
 syslog(LOG_NOTICE, "LOG_NOTICE  Entry added successfully with random data:" . $data);
-
 syslog(LOG_DEBUG	, "LOG_DEBUG    Entry added successfully with random data:" . $data);
+
+closelog();
+
 
 error_log("error_log    Entry added successfully with random data:" . $data);
 
