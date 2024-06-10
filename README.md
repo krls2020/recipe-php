@@ -1,79 +1,32 @@
-# Zerops Hello World PHP
+# Zerops x PHP
+This is the most bare-bones example of PHP app running on Zerops.
 
-```yaml
-project:
-  name: zerops-hello-world-php
-  tags:
-    - zerops
-    - hello-worlds
+![nodejs](https://github.com/krls2020/recipe-shared-assets/blob/main/cover-django.png)
 
-services:
-  - hostname: phpnginx81
-    type: php-nginx@8.3
-    envSecrets:
-      DB_HOST: db
-      DB_NAME: db
-      DB_PASS: ${db_password}
-      DB_PORT: "5432"
-      DB_USER: ${db_user}
-    enableSubdomainAccess: true
-    buildFromGit: https://github.com/zeropsio/recipe-onboarding-php
-    nginxConfig: |
-      server {
-          listen 80;
-          listen [::]:80;
+## Deploy on Zerops
+You can either click the deploy button to deploy directly on Zerops, or manually copy the [import yaml](https://github.com/zeropsio/recipe-php/blob/main/zerops-project-import.yml) to the import dialog in the Zerops app.
 
-          server_name _;
+<a href="https://app.zerops.io/recipe/nodejs">
+    <img width="250" alt="Deploy on Zerops" src="https://github.com/krls2020/recipe-shared-assets/blob/main/deploy-button.png">
+</a>
 
-          # Be sure that you set up a correct document root!
-          root /var/www;
+<br/>
+<br/>
 
-          location ~ \.php {
-              try_files _ @backend;
-          }
+## Recipe features
+- Node.js running Express.js on **Zerops Node.js** service
+- Zerops **PostgreSQL 16** service as database
+- Healthcheck setup example
+- Utilization of Zerops' built-in **environment variables** system
+- Utilization of Zerops' built-in **log management**
 
-          location / {
-              # use this for pretty url
-              try_files $uri /$uri /index.html /index.php$is_args$args;
-          }
+## Production vs. development
+Base of the recipe is ready for production, the difference comes down to:
 
-          location @backend {
-              fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
-              fastcgi_split_path_info ^(.+\.php)(/.*)$;
-              include fastcgi_params;
+- Use highly available version of the PostgreSQL database (change ***mode*** from ***NON_HA*** to ***HA*** in recipe YAML, ***db*** service section)
+- Use at least two containers for the Node.js service to achieve high reliability and resilience (add ***minContainers: 2*** in recipe YAML, ***api*** service section)
 
-              fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-              fastcgi_param DOCUMENT_ROOT $realpath_root;
-              internal;
-          }
-
-          access_log syslog:server=unix:/dev/log,facility=local1 default_short;
-          error_log syslog:server=unix:/dev/log,facility=local1;
-      }
-    minContainers: 1
-
-  - hostname: phpapache81
-    type: php-apache@8.1+2.4
-    envSecrets:
-      DB_HOST: db
-      DB_NAME: db
-      DB_PASS: ${db_password}
-      DB_PORT: "5432"
-      DB_USER: ${db_user}
-    enableSubdomainAccess: true
-    buildFromGit: https://github.com/zeropsio/recipe-onboarding-php
-    minContainers: 1
-
-  - hostname: adminer
-    type: php-apache@8.0+2.4
-    buildFromGit: https://github.com/zeropsio/recipe-adminer@main
-    enableSubdomainAccess: true
-    minContainers: 1
-    maxContainers: 1
-
-  - hostname: db
-    type: postgresql@14
-    mode: NON_HA
-    priority: 1
-```
-
+Futher things to think about when running more complex, highly available Node.js production apps on Zerops:
+- containers are volatile - use Zerops object storage to store your files
+- use Zerops Redis (KeyDB) for caching, storing sessions and pub/sub messaging
+- use more advanced logging lib, such as [winston](https://github.com/winstonjs/winston)
