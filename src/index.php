@@ -50,7 +50,7 @@ See the source repository (<a href="https://github.com/zeropsio/recipe-php">http
 
 Entry added successfully with random data: $data. Total count: {$row['count']}
 
-
+LOGUJ
 </pre>
 EOT;
 
