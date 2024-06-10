@@ -1,13 +1,13 @@
 # Zerops x PHP
 This is the most bare-bones example of PHP app running on Zerops.
 
-![nodejs](https://github.com/zerops/recipe-shared-assets/blob/main/cover-php.png)
+![nodejs](https://github.com/zeropsio/recipe-shared-assets/blob/main/cover-php.png)
 
 ## Deploy on Zerops
 You can either click the deploy button to deploy directly on Zerops, or manually copy the [import yaml](https://github.com/zeropsio/recipe-php/blob/main/zerops-project-import.yml) to the import dialog in the Zerops app.
 
 <a href="https://app.zerops.io/recipe/nodejs">
-    <img width="250" alt="Deploy on Zerops" src="https://github.com/zerops/recipe-shared-assets/blob/main/deploy-button.png">
+    <img width="250" alt="Deploy on Zerops" src="https://github.com/zeropsio/recipe-shared-assets/blob/main/deploy-button.png">
 </a>
 
 <br/>
